@@ -14,6 +14,7 @@ double Low;
 double High;
 double Close;
 long Time;
+double Volume;
 
 /**
  * Populates a vector with candlesticks based on the input v8 array

@@ -29,6 +29,7 @@ Candlestick Candlestick::CreateFromObject(
 	c.High = input->Get(Nan::New<v8::String>("high").ToLocalChecked())->NumberValue();
 	c.Close = input->Get(Nan::New<v8::String>("close").ToLocalChecked())->NumberValue();
 	c.Time = input->Get(Nan::New<v8::String>("time").ToLocalChecked())->Int32Value();
+	c.Volume = input->Get(Nan::New<v8::String>("volume").ToLocalChecked())->NumberValue();
 
 	return c;
 }
@@ -65,4 +66,6 @@ void Candlestick::ToObject(
 		Nan::New<v8::Number>(candlestick.Close));
 	output->Set(Nan::New<v8::String>("time").ToLocalChecked(),
 		Nan::New<v8::Number>(candlestick.Time));
+	output->Set(Nan::New<v8::String>("volume").ToLocalChecked(),
+		Nan::New<v8::Number>(candlestick.Volume));
 }

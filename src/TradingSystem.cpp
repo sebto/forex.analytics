@@ -183,6 +183,7 @@ std::vector<Candlestick> TradingSystem::ConvertOHLCToLargerTimeframe(
 	double current_bar_low = 0;
 	double current_bar_close = 0;
 	int boundary_adjusted_time = 0;
+	double current_bar_volume = 0;
 
 	if (bars_to_convert.size() == 0)
 		return bars_converted;
@@ -203,7 +204,8 @@ std::vector<Candlestick> TradingSystem::ConvertOHLCToLargerTimeframe(
 				stick.High = current_bar_high;
 				stick.Low = current_bar_low;
 				stick.Close = current_bar_close;
-
+				stick.Volume = current_bar_volume;
+				current_bar_volume = 0;
 
 				bars_converted.push_back(stick);
 			}
@@ -214,12 +216,14 @@ std::vector<Candlestick> TradingSystem::ConvertOHLCToLargerTimeframe(
 			current_bar_high = bar.High;
 			current_bar_low = bar.Low;
 			current_bar_close = bar.Close;
+			current_bar_volume = bar.Volume;
 		}
 		else
 		{
 			current_bar_high = bar.High > current_bar_high ? bar.High : current_bar_high;
 			current_bar_low = bar.Low < current_bar_low ? bar.Low : current_bar_low;
 			current_bar_close = bar.Close;
+			current_bar_volume += bar.Volume;
 		}
 	}
 	// Add the final bar
@@ -230,6 +234,7 @@ std::vector<Candlestick> TradingSystem::ConvertOHLCToLargerTimeframe(
 	stick.High = current_bar_high;
 	stick.Low = current_bar_low;
 	stick.Close = current_bar_close;
+	stick.Volume = current_bar_volume;
 
 
 	bars_converted.push_back(stick);
